@@ -1,7 +1,6 @@
 body {
   margin: 0px;
   padding: 0px;
-  
 }
 
 .main-container {
@@ -32,27 +31,22 @@ h1 {
   text-align: center;
 }
 
-h2{
+h2 {
   text-align: center;
 }
 
 h3 {
   color: rgb(14, 52, 69);
   text-align: left;
+  padding-left: 70px;
 }
 
-#filter-btn-container{
-  /*background-color: rgb(202, 237, 240);
-  width: 75%;
-  position: relative;
-  text-align: center;
-  left: 175px;*/
+#filter-btn-container {
   display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding-top: 20px;
-    gap: 10px;
-  
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 20px;
+  gap: 10px;
 }
 
 .btn {
@@ -60,18 +54,68 @@ h3 {
   height: 50px;
   border: 2px solid white;
   border-radius: 15px;
-  color: black;
+  color: white;
   margin: 5px;
-  /* Legg til en liten margin mellom knappene */
 }
 
-#pokemons-container{
+.normal-btn {
+  background-color: #a8a77a;
+}
+.bug-btn {
+  background-color: #a6b91a;
+}
+.dark-btn {
+  background-color: #705746;
+}
+.dragon-btn {
+  background-color: #6f35fc;
+}
+.electric-btn {
+  background-color: #f7d02c;
+}
+.fairy-btn {
+  background-color: #d685ad;
+}
+.fighting-btn {
+  background-color: #c22e28;
+}
+.fire-btn {
+  background-color: #ee8130;
+}
+.flying-btn {
+  background-color: #a98ff3;
+}
+.ghost-btn {
+  background-color: #735797;
+}
+.grass-btn {
+  background-color: #7ac74c;
+}
+.ice-btn {
+  background-color: #96d9d6;
+}
+.poison-btn {
+  background-color: #a33ea1;
+}
+.psychic-btn {
+  background-color: #f95587;
+}
+.rock-btn {
+  background-color: #b6a136;
+}
+.steel-btn {
+  background-color: #b7b7ce;
+}
+.water-btn {
+  background-color: #6390f0;
+}
+
+#pokemons-container {
   width: 50%;
-  float:left;
+  float: left;
 }
 
-#saved-pokemons-container{
+#saved-pokemons-container {
   width: 50%;
   float: right;
 }
-
