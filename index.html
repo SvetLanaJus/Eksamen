@@ -8,17 +8,92 @@
 </head>
 
 <body>
-  <h1>Pokemons</h1>
   <div class="main-container">
+    <h1>Pokemons</h1>
     <div class="likes-container">
       Antall liker:
       <span id="likes-counter">5</span>
     </div>
+    <h3>Lag din egen pokemon!</h3>
     <input type="text" placeholder="Navn på ny pokemon" id="new-pokemon-txt" />
-    <input type="button" value="Lag din egen pokemon!" id="add-btn" />
-    <div id="pokemon-container"></div>
+    <select id="type-selection">
+      <option value="bug">Bug</option>
+      <option value="dark">Dark</option>
+      <option value="dragon">Dragon</option>
+      <option value="electric">Electric</option>
+      <option value="fairy">Fairy</option>
+      <option value="fighting">Fighting</option>
+      <option value="fire">Fire</option>
+      <option value="flying">Flying</option>
+      <option value="ghost">Ghost</option>
+      <option value="grass">Ground</option>
+      <option value="ice">Ice</option>
+      <option value="normal">Normal</option>
+      <option value="poison">Poison</option>
+      <option value="psychic">Psychic</option>
+      <option value="rock">Rock</option>
+      <option value="steel">Steel</option>
+      <option value="water">Water</option>      
+    </select>
+    <input type="button" value="Lag din pokemon!" id="add-btn" />
+      <h2>Filtrer pga stiler</h2>
+    <div id="filter-btn-container">
+      <input type="button" value="bug" class="btn bug-btn" />
+      <input type="button" value="dark" class="btn dark-btn" />
+      <input type="button" value="dragon" class="btn dragon-btn" />
+      <input type="button" value="electric" class="btn electric-btn" />
+      <input type="button" value="fairy" class="btn fairy-btn" />
+      <input type="button" value="fighting" class="btn fighting-btn" />
+      <input type="button" value="fire" class="btn fire-btn" />
+      <input type="button" value="flying" class="btn flying-btn" />
+      <input type="button" value="ghost" class="btn ghost-btn" />
+      <input type="button" value="grass" class="btn grass-btn" />
+      <input type="button" value="ice" class="btn ice-btn" />
+      <input type="button" value="normal" class="btn normal-btn" />
+      <input type="button" value="poison" class="btn poison-btn" />
+      <input type="button" value="psychic" class="btn psychic-btn" />
+      <input type="button" value="rock" class="btn rock-btn" />
+      <input type="button" value="steel" class="btn steel-btn" />
+      <input type="button" value="water" class="btn water-btn" />
+    </div>
+    <div id="pokemons-container"></div>
     <div id="saved-pokemons-container"></div>
     </div>
   </div>
+
+  <script>
+    //Antall likes
+    const likesCounterTxt = document.getElementById("likes-counter");
+    let likesCounter = 5;
+
+    //Filtervalg
+    let filter = "";
+
+    //Likte pokemoner
+    let savedPokemons = [];
+
+    //Knapper
+    const addBtn = document.getElementById("add-btn");
+
+    //Kontainere
+    const pokemonsContainer = document.getElementById("pokemons-container");
+    const savedPokemonsContainer = document.getElementById("saved-pokemons-container");
+
+    function updateCounter() {
+        likesCounterTxt.textContent = likesCounter;
+      }
+      // Funksjon til å sjekke at brukeren har likt 5 eller mer enn 5 cards
+      function overMaxLikes() {
+        if (likedCards.length >= 5) {
+          alert(
+            "Listen med liked cards er full! Slett minst en pokemon før du kan like flere igjen"
+          );
+          return true;
+        }
+        return false;
+      }
+      
+
+  </script>
 </body>
 </html>
