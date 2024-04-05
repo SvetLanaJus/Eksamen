@@ -72,6 +72,8 @@
     //Likte pokemoner
     let savedPokemons = [];
 
+    let pokemons;
+
     //Knapper
     const addBtn = document.getElementById("add-btn");
 
@@ -93,7 +95,46 @@
         return false;
       }
       
+      async function fetchPokemons() {
+        const pokemonsRequest = await fetch("https://pokeapi.co/api/v2/pokemon?limit=50");
+        let result = await pokemonsRequest.json();
 
+        return result.results;
+      }
+
+      async function fetchAndShowPokemons() {
+        try {
+          pokemons = await fetchPokemons();
+          showAllPokemons();
+          } catch (error) {
+            console.error(`Fetch error:`, error);
+          }
+      }
+
+      fetchAndShowPokemons();
+
+      function showAllPokemons() {
+        pokemonsContainer.innerHTML = "";
+
+        pokemons.forEach(pokemon => {
+          const pokemonCard = document.createElement("div");
+          pokemonCard.textContent = pokemon.name;
+
+        const deleteBtn = document.createElement("button");
+          deleteBtn.innerHTML = "Slett pokemon";
+          deleteBtn.style.backgroundColor = "white";
+          deleteBtn.addEventListener("click", function () {
+            deletePokemon(pokemon);
+          })
+
+          pokemonCard.appendChild(deleteBtn);
+          pokemonsContainer.appendChild(pokemonCard);
+          
+        });
+      }
+        function deletePokemon(pokemon) {
+          //Lage funksjonen
+        }
   </script>
 </body>
 </html>
