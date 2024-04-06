@@ -124,9 +124,33 @@
           const type = document.createElement("p");
           type.textContent = result.types[0].type.name;
 
+          const saveBtn = document.createElement("button");
+          saveBtn.innerHTML = "Lagre pokemon";
+          saveBtn.style.backgroundColor = "white";
+          saveBtn.addEventListener("click", function () {
+            savePokemon(pokemon);
+          })
+
+          const deleteBtn = document.createElement("button");
+          deleteBtn.innerHTML = "Slett pokemon";
+          deleteBtn.style.backgroundColor = "white";
+          deleteBtn.addEventListener("click", function () {
+            deletePokemon(pokemon);
+          });
+
+          const editBtn = document.createElement("button");
+          editBtn.innerHTML = "Rediger pokemon";
+          editBtn.style.backgroundColor = "white";
+          editBtn.addEventListener("click", function () {
+            editPokemon(pokemon);
+          });
+
           pokemonCard.appendChild(img);
           pokemonCard.appendChild(name);
           pokemonCard.appendChild(type);
+          pokemonCard.appendChild(saveBtn);
+          pokemonCard.appendChild(deleteBtn);
+          pokemonCard.appendChild(editBtn);
 
           pokemonsContainer.appendChild(pokemonCard);
         });
