@@ -111,6 +111,10 @@ h3 {
 }
 
 #pokemons-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+  justify-content: center;
   width: 50%;
   float: left;
 }
@@ -118,4 +122,19 @@ h3 {
 #saved-pokemons-container {
   width: 50%;
   float: right;
+}
+
+.pokemon-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  display: inline-block;
+  width: 200px;
+  text-align: center;
+}
+
+.pokemon-card img {
+  max-width: 100%;
+  height: auto;
 }
