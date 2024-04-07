@@ -59,7 +59,6 @@
     <div id="pokemons-container"></div>
     <div id="saved-pokemons-container"></div>
     </div>
-  </div>
 
   <script>
     /*Antall likes
@@ -166,6 +165,20 @@
 
         return pokemonCard;
       }
+
+      //Lage ny pokemon
+      addBtn.addEventListener("click", function () {
+        const nameInput = document.getElementById("new-pokemon-txt").value;
+        const typeInput = document.getElementById("type-selection").value;
+
+        const newPokemon = {
+          name: nameInput,
+          types: [{type: {name: typeInput}}],
+          sprites: {front_default: "assets/pokemon1.jpg"}
+        }
+        const pokemonCard = createPokemonCard(newPokemon);
+        pokemonsContainer.appendChild(pokemonCard);
+      });
       //Viser de opprinnelige 50 pokemoner
       async function showPokemons() {
           pokemons = await fetchPokemons();
