@@ -89,6 +89,31 @@
     </div>
     <script>
 
+      let pokemons = [];
+
+      async function fetchPokemonData() {
+        const pokemonNames = ["pikachu", "charmander", "bulbasaur", "toxapex"];
+        const pokemonData = [];
+
+        for (const name of pokemonNames) {
+          const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+          const data = await response.json();
+          pokemonData.push(data);
+        }
+
+        return pokemonData;
+      }
+
+      async function getPokemonData() {
+        try{
+          const pokemonData = await fetchPokemonData();
+          console.log(pokemonData);
+        } catch (error) {
+          console.error("Feil:", error);
+        }
+      }
+
+      getPokemonData();
     </script>
   </body>
 </html>
