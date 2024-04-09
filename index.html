@@ -1,100 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pokemons</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokemons</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
-  <div class="main-container">
-    <h1>Pokemons</h1>
-    <div class="saves-container">
-      Antall saved:
-      <span id="saves-counter">5</span>
-    </div>
-    <h3>Lag din egen pokemon!</h3>
-    <input type="text" placeholder="Navn på ny pokemon" id="new-pokemon-txt" />
-    <select id="type-selection">
-      <option value="bug">Bug</option>
-      <option value="dark">Dark</option>
-      <option value="dragon">Dragon</option>
-      <option value="electric">Electric</option>
-      <option value="fairy">Fairy</option>
-      <option value="fighting">Fighting</option>
-      <option value="fire">Fire</option>
-      <option value="flying">Flying</option>
-      <option value="ghost">Ghost</option>
-      <option value="grass">Ground</option>
-      <option value="ice">Ice</option>
-      <option value="normal">Normal</option>
-      <option value="poison">Poison</option>
-      <option value="psychic">Psychic</option>
-      <option value="rock">Rock</option>
-      <option value="steel">Steel</option>
-      <option value="water">Water</option>      
-    </select>
-    <input type="button" value="Lag din pokemon!" id="add-btn" />
+  <body>
+    <div class="main-container">
+      <h1>Pokemons</h1>
+      <div class="saves-container">
+        Antall saved:
+        <span id="saves-counter">0</span>
+      </div>
+      <h3>Lag din egen pokemon!</h3>
+      <input
+        type="text"
+        placeholder="Navn på ny pokemon"
+        id="new-pokemon-txt"
+      />
+      <select id="type-selection">
+        <option value="bug">Bug</option>
+        <option value="dark">Dark</option>
+        <option value="dragon">Dragon</option>
+        <option value="electric">Electric</option>
+        <option value="fairy">Fairy</option>
+        <option value="fighting">Fighting</option>
+        <option value="fire">Fire</option>
+        <option value="flying">Flying</option>
+        <option value="ghost">Ghost</option>
+        <option value="grass">Ground</option>
+        <option value="ice">Ice</option>
+        <option value="normal">Normal</option>
+        <option value="poison">Poison</option>
+        <option value="psychic">Psychic</option>
+        <option value="rock">Rock</option>
+        <option value="steel">Steel</option>
+        <option value="water">Water</option>
+      </select>
+      <input type="button" value="Lag din pokemon!" id="add-btn" />
       <h2>Filtrer pga stiler</h2>
-    <div id="filter-btn-container">
-      <input type="button" value="bug" class="btn bug-btn filter-btn" />
-      <input type="button" value="dark" class="btn dark-btn filter-btn" />
-      <input type="button" value="dragon" class="btn dragon-btn filter-btn" />
-      <input type="button" value="electric" class="btn electric-btn filter-btn" />
-      <input type="button" value="fairy" class="btn fairy-btn filter-btn" />
-      <input type="button" value="fighting" class="btn fighting-btn filter-btn" />
-      <input type="button" value="fire" class="btn fire-btn filter-btn" />
-      <input type="button" value="flying" class="btn flying-btn filter-btn" />
-      <input type="button" value="ghost" class="btn ghost-btn filter-btn" />
-      <input type="button" value="grass" class="btn grass-btn filter-btn" />
-      <input type="button" value="ice" class="btn ice-btn filter-btn" />
-      <input type="button" value="normal" class="btn normal-btn filter-btn" />
-      <input type="button" value="poison" class="btn poison-btn filter-btn" />
-      <input type="button" value="psychic" class="btn psychic-btn filter-btn" />
-      <input type="button" value="rock" class="btn rock-btn filter-btn" />
-      <input type="button" value="steel" class="btn steel-btn filter-btn" />
-      <input type="button" value="water" class="btn water-btn filter-btn" />
+      <div id="filter-btn-container">
+        <input type="button" value="bug" class="btn bug-btn filter-btn" />
+        <input type="button" value="dark" class="btn dark-btn filter-btn" />
+        <input type="button" value="dragon" class="btn dragon-btn filter-btn" />
+        <input
+          type="button"
+          value="electric"
+          class="btn electric-btn filter-btn"
+        />
+        <input type="button" value="fairy" class="btn fairy-btn filter-btn" />
+        <input
+          type="button"
+          value="fighting"
+          class="btn fighting-btn filter-btn"
+        />
+        <input type="button" value="fire" class="btn fire-btn filter-btn" />
+        <input type="button" value="flying" class="btn flying-btn filter-btn" />
+        <input type="button" value="ghost" class="btn ghost-btn filter-btn" />
+        <input type="button" value="grass" class="btn grass-btn filter-btn" />
+        <input type="button" value="ice" class="btn ice-btn filter-btn" />
+        <input type="button" value="normal" class="btn normal-btn filter-btn" />
+        <input type="button" value="poison" class="btn poison-btn filter-btn" />
+        <input
+          type="button"
+          value="psychic"
+          class="btn psychic-btn filter-btn"
+        />
+        <input type="button" value="rock" class="btn rock-btn filter-btn" />
+        <input type="button" value="steel" class="btn steel-btn filter-btn" />
+        <input type="button" value="water" class="btn water-btn filter-btn" />
+      </div>
+      <div id="pokemons-container"></div>
+      <div id="saved-pokemons-container"></div>
     </div>
-    <div id="pokemons-container"></div>
-    <div id="saved-pokemons-container"></div>
-    </div>
 
-  <script>
-    /*Antall likes
-    const likesCounterTxt = document.getElementById("likes-counter");
-    let likesCounter = 5;
+    <script>
+      //Antall saves
+      const savesCounterTxt = document.getElementById("saves-counter");
+      let savesCounter = 0;
 
-    //Lagret pokemoner
-    let savedPokemons = [];*/
+      //Lagret pokemoner
+      let savedPokemons = [];
 
-    //Basic 50 pokemons
-    let pokemons = [];
+      //Basic 50 pokemons
+      let pokemons = [];
 
-    //Knapper
-    const addBtn = document.getElementById("add-btn");
+      //Knapp til en ny pokemon
+      const addBtn = document.getElementById("add-btn");
 
-    //Kontainere
-    const pokemonsContainer = document.getElementById("pokemons-container");
-    const savedPokemonsContainer = document.getElementById("saved-pokemons-container");
+      //Kontainere
+      const pokemonsContainer = document.getElementById("pokemons-container");
+      const savedPokemonsContainer = document.getElementById(
+        "saved-pokemons-container"
+      );
 
-    /*function updateCounter() {
-        likesCounterTxt.textContent = likesCounter;
+      function updateCounter() {
+        savesCounterTxt.textContent = savesCounter;
       }
-      // Funksjon til å sjekke at brukeren har likt 5 eller mer enn 5 cards
-      function overMaxLikes() {
-        if (likedCards.length >= 5) {
+      // Funksjon til å sjekke at brukeren har lagret 5 pokemoner
+      function overMaxSaves() {
+        if (savedPokemons.length >= 5) {
           alert(
-            "Listen med liked charakters er full! Slett minst en pokemon før du kan like flere igjen"
+            "Listen med saved pokemons er full! Slett minst en pokemon før du kan lagre flere igjen"
           );
           return true;
         }
         return false;
-      }*/
-      
+      }
+      //Saves counter
+      function countSaves() {
+        if (savesCounter <= 5) {
+          if (overMaxSaves()) {
+            return;
+          }
+          savesCounter += 1;
+          updateCounter();
+          updateSavedPokemons();
+          showPokemons();
+        } else {
+          countSavesUpdate();
+        }
+      }
+
+      //Prompt med opdatering i saves Counter
+      function countSavesUpdate() {
+        if (savesCounter <= 0) {
+          const userAnswer = prompt(
+            "Du har lagret max antall pokemons. Vil du velge og lagre mer? (Ja/Nei)"
+          ).toLowerCase();
+
+          if (userAnswer == "ja") {
+            savesCounter = 5;
+            updateCounter();
+            showPokemons();
+          } else if (userAnswer == "nei") {
+            countSavesUpdate();
+          }
+        }
+      }
       //Henter data fra API
       async function fetchPokemons() {
-        const pokemonsRequest = await fetch("https://pokeapi.co/api/v2/pokemon?limit=50");
+        const pokemonsRequest = await fetch(
+          "https://pokeapi.co/api/v2/pokemon?limit=50"
+        );
         const data = await pokemonsRequest.json();
         return data.results;
       }
@@ -119,7 +169,7 @@
           psychic: "#f95587",
           rock: "#b6a136",
           steel: "#b7b7ce",
-          water: "#6390f0"
+          water: "#6390f0",
         };
         const pokemonCard = document.createElement("div");
         pokemonCard.classList.add("pokemon-card");
@@ -151,7 +201,7 @@
 
         const editBtn = document.createElement("button");
         editBtn.innerHTML = "Rediger pokemon";
-        editBtn.style.backgroundColor ="white";
+        editBtn.style.backgroundColor = "white";
         editBtn.addEventListener("click", function () {
           editPokemon(pokemon);
         });
@@ -173,54 +223,128 @@
 
         const newPokemon = {
           name: nameInput,
-          types: [{type: {name: typeInput}}],
-          sprites: {front_default: "assets/pokemon1.jpg"}
-        }
+          types: [{ type: { name: typeInput } }],
+          sprites: { front_default: "assets/pokemon1.jpg" },
+        };
         const pokemonCard = createPokemonCard(newPokemon);
         pokemonsContainer.appendChild(pokemonCard);
       });
+
       //Viser de opprinnelige 50 pokemoner
       async function showPokemons() {
-          pokemons = await fetchPokemons();
-                pokemons.forEach(async pokemonData => {
-                const pokemonsRequest = await fetch(pokemonData.url);
-                const result = await pokemonsRequest.json();
+        pokemons = await fetchPokemons();
+        pokemons.forEach(async (pokemonData) => {
+          const pokemonsRequest = await fetch(pokemonData.url);
+          const result = await pokemonsRequest.json();
 
-                const pokemonCard = createPokemonCard(result);
-                pokemonsContainer.appendChild(pokemonCard);
-              });
+          const pokemonCard = createPokemonCard(result);
+          pokemonsContainer.appendChild(pokemonCard);
+        });
+      }
+
+      // Filtrer pokemoner basert på type
+      async function filterPokemonsByType(type) {
+        pokemonsContainer.innerHTML = "";
+        pokemons.forEach(async (pokemonData) => {
+          const pokemon = await fetchPokemonDetails(pokemonData.url);
+          const types = pokemon.types.map((type) => type.type.name);
+          if (types.includes(type)) {
+            const pokemonCard = createPokemonCard(pokemon);
+            pokemonsContainer.appendChild(pokemonCard);
           }
+        });
+      }
 
-          // Filtrer pokemoner basert på type
-          async function filterPokemonsByType(type) {
-              pokemonsContainer.innerHTML = "";
-              pokemons.forEach(async pokemonData => {
-                const pokemon = await fetchPokemonDetails(pokemonData.url);
-                const types = pokemon.types.map(type => type.type.name);
-                if (types.includes(type)) {
-                  const pokemonCard = createPokemonCard(pokemon);
-                  pokemonsContainer.appendChild(pokemonCard);
-                }
-              });
+      // Hjelpefunksjon for å hente detaljer for en enkelt pokemon
+      async function fetchPokemonDetails(url) {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+      }
+
+      // Event listener for filtreringsknapper
+      document.querySelectorAll(".filter-btn").forEach((button) => {
+        button.addEventListener(`click`, function () {
+          const type = this.value;
+          filterPokemonsByType(type);
+        });
+      });
+
+      showPokemons();
+
+      //Funksjon til å lagre pokemon
+      function savePokemon(pokemon) {
+         if (overMaxSaves()) {
+          alert("Hei, det går ikke å lagre flere enn 5 pokemoner!");
+          return;
+         }
+
+      savedPokemons.push(pokemon);
+      localStorage.setItem("savedPokemons", JSON.stringify(savedPokemons));
+      updateSavedPokemons();
+      countSaves();
+      }
+      
+      //Updating i oversikt over lagret pokemoner
+      function updateSavedPokemons() {
+        savedPokemonsContainer.innerHTML = "";
+        const savedPokemonsFromLS = JSON.parse(localStorage.getItem("savedPokemons")) || [];
+        
+        savedPokemonsFromLS.forEach(pokemon => {
+          const pokemonCard = createPokemonCard(pokemon);
+          savedPokemonsContainer.appendChild(pokemonCard);
+        })
+      }
+       // Slett pokemon funksjonalitet
+        //Funksjon som sletter pokemon fra pokemons kontainer
+       function deletePokemonFromMain(pokemon) {
+        const pokemonCards = document.querySelectorAll(".pokemon-card");
+        pokemonCards.forEach(card => {
+          if (card.textContent.includes(pokemon.name)) {
+            card.remove();
           }
+        });
+       }
+        //Funksjon som sletter pokemons fra saved pokemons kontainer
+       function deletePokemonFromSaved(pokemon) {
+        const savedPokemonsFromLS = JSON.parse(localStorage.getItem("savedPokemons")) || [];
+        const updateSavedPokemons = savedPokemonsFromLS.filter(p => p.name !== pokemon.name);
+        localStorage.setItem("savedPokemons", JSON.stringify(updatedSavedPokemons));
+        if (updatedSavedPokemons.length == 0) {
+          savesCounter = 0;
+        }
+        updateCounter();
+       }
 
-             // Hjelpefunksjon for å hente detaljer for en enkelt pokémon
-              async function fetchPokemonDetails(url) {
-                const response = await fetch(url);
-                const data = await response.json();
-                return data;
-              }
+       function deletePokemon(pokemon) {
+        const confirmedDelete = confirm(`Er du sikker på at du vil slette ${pokemon.name}?`);
+        if (confirmedDelete) {
+          deletePokemonFromMain(pokemon);
+          deletePokemonFromSaved(pokemon);
+          updateSavedPokemons();
+          savesCounter --;
+          updateCounter();
+        }
+       }
 
-            // Event listener for filtreringsknapper
-            document.querySelectorAll(".filter-btn").forEach(button => {
-              button.addEventListener(`click`, function () {
-                const type = this.value;
-                filterPokemonsByType(type);
-              });
-            });
+    //Funksjon til å redigere pokemon kort (navn, type)
+       function editPokemon(pokemon) {
+        const changeName = ("Endre navn", pokemon.name);
+        const changeType = ("Endre type", pokemon.types[0].type.name);
 
-          showPokemons();
+        if (changeName !== "") {
+          pokemon.name = changeName;
+        }
+        if (changeType !== "") {
+          pokemon.types[0].type.name = changeType;
+        }
 
-  </script>
-</body>
+        localStorage.setItem("savedPokemons", JSON.stringify(savedPokemons));
+
+        updateSavedPokemons();
+       }
+
+       
+    </script>
+  </body>
 </html>
