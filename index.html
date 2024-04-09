@@ -45,17 +45,9 @@
         <input type="button" value="bug" class="btn bug-btn filter-btn" />
         <input type="button" value="dark" class="btn dark-btn filter-btn" />
         <input type="button" value="dragon" class="btn dragon-btn filter-btn" />
-        <input
-          type="button"
-          value="electric"
-          class="btn electric-btn filter-btn"
-        />
+        <input type="button" value="electric"class="btn electric-btn filter-btn"        />
         <input type="button" value="fairy" class="btn fairy-btn filter-btn" />
-        <input
-          type="button"
-          value="fighting"
-          class="btn fighting-btn filter-btn"
-        />
+        <input type="button" value="fighting"class="btn fighting-btn filter-btn"        />
         <input type="button" value="fire" class="btn fire-btn filter-btn" />
         <input type="button" value="flying" class="btn flying-btn filter-btn" />
         <input type="button" value="ghost" class="btn ghost-btn filter-btn" />
@@ -63,15 +55,12 @@
         <input type="button" value="ice" class="btn ice-btn filter-btn" />
         <input type="button" value="normal" class="btn normal-btn filter-btn" />
         <input type="button" value="poison" class="btn poison-btn filter-btn" />
-        <input
-          type="button"
-          value="psychic"
-          class="btn psychic-btn filter-btn"
-        />
+        <input type="button" value="psychic"class="btn psychic-btn filter-btn"        />
         <input type="button" value="rock" class="btn rock-btn filter-btn" />
         <input type="button" value="steel" class="btn steel-btn filter-btn" />
         <input type="button" value="water" class="btn water-btn filter-btn" />
       </div>
+      <h3>Random 50 pokemons</h3>
       <div id="pokemons-container"></div>
       <div id="saved-pokemons-container"></div>
     </div>
@@ -274,61 +263,70 @@
 
       //Funksjon til å lagre pokemon
       function savePokemon(pokemon) {
-         if (overMaxSaves()) {
+        if (overMaxSaves()) {
           alert("Hei, det går ikke å lagre flere enn 5 pokemoner!");
           return;
-         }
+        }
 
-      savedPokemons.push(pokemon);
-      localStorage.setItem("savedPokemons", JSON.stringify(savedPokemons));
-      updateSavedPokemons();
-      countSaves();
+        savedPokemons.push(pokemon);
+        localStorage.setItem("savedPokemons", JSON.stringify(savedPokemons));
+        updateSavedPokemons();
+        countSaves();
       }
-      
+
       //Updating i oversikt over lagret pokemoner
       function updateSavedPokemons() {
         savedPokemonsContainer.innerHTML = "";
-        const savedPokemonsFromLS = JSON.parse(localStorage.getItem("savedPokemons")) || [];
-        
-        savedPokemonsFromLS.forEach(pokemon => {
+        const savedPokemonsFromLS =
+          JSON.parse(localStorage.getItem("savedPokemons")) || [];
+
+        savedPokemonsFromLS.forEach((pokemon) => {
           const pokemonCard = createPokemonCard(pokemon);
           savedPokemonsContainer.appendChild(pokemonCard);
-        })
+        });
       }
-       // Slett pokemon funksjonalitet
-        //Funksjon som sletter pokemon fra pokemons kontainer
-       function deletePokemonFromMain(pokemon) {
+      // Slett pokemon funksjonalitet
+      //Funksjon som sletter pokemon fra pokemons kontainer
+      function deletePokemonFromMain(pokemon) {
         const pokemonCards = document.querySelectorAll(".pokemon-card");
-        pokemonCards.forEach(card => {
+        pokemonCards.forEach((card) => {
           if (card.textContent.includes(pokemon.name)) {
             card.remove();
           }
         });
-       }
-        //Funksjon som sletter pokemons fra saved pokemons kontainer
-       function deletePokemonFromSaved(pokemon) {
-        const savedPokemonsFromLS = JSON.parse(localStorage.getItem("savedPokemons")) || [];
-        const updateSavedPokemons = savedPokemonsFromLS.filter(p => p.name !== pokemon.name);
-        localStorage.setItem("savedPokemons", JSON.stringify(updatedSavedPokemons));
+      }
+      //Funksjon som sletter pokemons fra saved pokemons kontainer
+      function deletePokemonFromSaved(pokemon) {
+        const savedPokemonsFromLS =
+          JSON.parse(localStorage.getItem("savedPokemons")) || [];
+        const updateSavedPokemons = savedPokemonsFromLS.filter(
+          (p) => p.name !== pokemon.name
+        );
+        localStorage.setItem(
+          "savedPokemons",
+          JSON.stringify(updatedSavedPokemons)
+        );
         if (updatedSavedPokemons.length == 0) {
           savesCounter = 0;
         }
         updateCounter();
-       }
+      }
 
-       function deletePokemon(pokemon) {
-        const confirmedDelete = confirm(`Er du sikker på at du vil slette ${pokemon.name}?`);
+      function deletePokemon(pokemon) {
+        const confirmedDelete = confirm(
+          `Er du sikker på at du vil slette ${pokemon.name}?`
+        );
         if (confirmedDelete) {
           deletePokemonFromMain(pokemon);
           deletePokemonFromSaved(pokemon);
           updateSavedPokemons();
-          savesCounter --;
+          savesCounter--;
           updateCounter();
         }
-       }
+      }
 
-    //Funksjon til å redigere pokemon kort (navn, type)
-       function editPokemon(pokemon) {
+      //Funksjon til å redigere pokemon kort (navn, type)
+      function editPokemon(pokemon) {
         const changeName = ("Endre navn", pokemon.name);
         const changeType = ("Endre type", pokemon.types[0].type.name);
 
@@ -342,9 +340,7 @@
         localStorage.setItem("savedPokemons", JSON.stringify(savedPokemons));
 
         updateSavedPokemons();
-       }
-
-       
+      }
     </script>
   </body>
 </html>

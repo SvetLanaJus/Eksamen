@@ -6,10 +6,8 @@ body {
 .main-container {
   width: 100%;
   min-height: 100vh;
-  background-image: url("assets/multicolor1.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
   overflow: hidden;
+  background-color: lightgray;
 }
 
 .saves-container {
@@ -19,7 +17,7 @@ body {
   height: 40px;
   padding-top: 15px;
   font-size: large;
-  border: 2px solid black;
+  border: 2px solid white;
   position: relative;
   background-color: rgb(230, 239, 227);
   border-radius: 15px;
@@ -117,11 +115,13 @@ h3 {
   justify-content: center;
   width: 50%;
   float: left;
+  background-color: white;
 }
 
 #saved-pokemons-container {
   width: 50%;
   float: right;
+  background-color: rgb(230, 239, 227);
 }
 
 .pokemon-card {
