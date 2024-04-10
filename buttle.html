@@ -40,55 +40,58 @@
         </div>
       </div>
 
-        <div class="health-container">
-          <div class="health">
-              <p id="pikachu-name-txt">Pikachu navn</p>
-              <p id="pikachu-health-txt">400 / 400 HP</p>
-          </div>
-          <div class="health">
-              <p id="bulbasaur-name-txt">Bulbasaur navn</p>
-              <p id="bulbasaur-health-txt">400 / 400 HP</p>
-          </div>
-          <div class="health">
-              <p id="charmander-name-txt">Charmander navn</p>
-              <p id="charmander-health-txt">400 / 400 HP</p>
-          </div>
-          <div class="health">
-              <p id="toxapex-name-txt">Toxapex navn</p>
-              <p id="toxapex-health-txt">400 / 400 HP</p>
-          </div>          
-        </div>
-
-        <div class="img-container pikachu">
-          <img
+      <div class="img-container pikachu">
+        <img
           class="pokemon-picture"
           src="assets/pikachu.png"
           alt="Pikachu bilde"
-          />
-        </div>
-        <div class="img-container bulbasaur">
-          <img 
-          class="pokemon-picture" 
-          src="assets/bulbasaur.png" 
-          alt="Bulbasaur bilde" />
-        </div>
-        <div class="img-container charmander">
-          <img 
-          class="pokemon-picture" 
-          src="assets/charmander.png" 
-          alt="Charmander bilde" />
-        </div>
-        <div class="img-container toxapex">
-          <img 
-          class="pokemon-picture" 
-          src="assets/toxapex.png" 
-          alt="Toxapex bilde" />
-        </div>
+        />
+      </div>
+      <div class="img-container bulbasaur">
+        <img
+          class="pokemon-picture"
+          src="assets/bulbasaur.png"
+          alt="Bulbasaur bilde"
+        />
+      </div>
+      <div class="img-container charmander">
+        <img
+          class="pokemon-picture"
+          src="assets/charmander.png"
+          alt="Charmander bilde"
+        />
+      </div>
+      <div class="img-container toxapex">
+        <img
+          class="pokemon-picture"
+          src="assets/toxapex.png"
+          alt="Toxapex bilde"
+        />
+      </div>
 
-       <div class="game-container"></div> 
+      <div class="pokemons-health-containers">
+        <div class="health-container">
+          <div class="health">
+            <p id="pikachu-name-txt">Pikachu navn</p>
+            <p id="pikachu-health-txt">400 / 400 HP</p>
+          </div>
+          <div class="health">
+            <p id="bulbasaur-name-txt">Bulbasaur navn</p>
+            <p id="bulbasaur-health-txt">400 / 400 HP</p>
+          </div>
+          <div class="health">
+            <p id="charmander-name-txt">Charmander navn</p>
+            <p id="charmander-health-txt">400 / 400 HP</p>
+          </div>
+          <div class="health">
+            <p id="toxapex-name-txt">Toxapex navn</p>
+            <p id="toxapex-health-txt">400 / 400 HP</p>
+          </div>
+        </div>
+      </div>
+      <div class="game-container"></div>
     </div>
     <script>
-
       let pokemons = [];
 
       async function fetchPokemonData() {
@@ -96,7 +99,9 @@
         const pokemonData = [];
 
         for (const name of pokemonNames) {
-          const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+          const response = await fetch(
+            `https://pokeapi.co/api/v2/pokemon/${name}`
+          );
           const data = await response.json();
           pokemonData.push(data);
         }
@@ -105,7 +110,7 @@
       }
 
       async function getPokemonData() {
-        try{
+        try {
           const pokemonData = await fetchPokemonData();
           console.log(pokemonData);
         } catch (error) {
