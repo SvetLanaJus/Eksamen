@@ -16,6 +16,7 @@
           <p id="pikachu-type"></p>
           <p id="pikachu-stat-1"></p>
           <p id="pikachu-stat-2"></p>
+          <p id="pikachu-stat-3"></p>
         </div>
         <div class="card bulbasaur-card-container">
           <img id="bulbasaur-picture" />
@@ -23,6 +24,7 @@
           <p id="bulbasaur-type"></p>
           <p id="bulbasaur-stat-1"></p>
           <p id="bulbasaur-stat-2"></p>
+          <p id="bulbasaur-stat-3"></p>
         </div>
         <div class="card charmander-card-container">
           <img id="charmander-picture" />
@@ -30,6 +32,7 @@
           <p id="charmander-type"></p>
           <p id="charmander-stat-1"></p>
           <p id="charmander-stat-2"></p>
+          <p id="charmander-stat-3"></p>
         </div>
         <div class="card toxapex-card-container">
           <img id="toxapex-picture" />
@@ -37,6 +40,7 @@
           <p id="toxapex-type"></p>
           <p id="toxapex-stat-1"></p>
           <p id="toxapex-stat-2"></p>
+          <p id="toxapex-stat-3"></p>
         </div>
       </div>
 
@@ -158,14 +162,24 @@
               (stat) => stat.stat.name === "attack"
             );
 
+            const defenseStat = pokemon.stats.find(
+              (stat) => stat.stat.name === "defense"
+            );
+
             const stat1 = cardContainer.querySelector(
               "p#" + pokemon.name + "-stat-1"
             );
             const stat2 = cardContainer.querySelector(
               "p#" + pokemon.name + "-stat-2"
             );
+
+            const stat3 = cardContainer.querySelector(
+              "p#" + pokemon.name + "-stat-3"
+            );
+            
             stat1.textContent = `HP: ${hpStat.base_stat}`;
             stat2.textContent = `Attack: ${attackStat.base_stat}`;
+            stat3.textContent = `Defense: ${defenseStat.base_stat}`;
           });
         } catch (error) {
           console.error("Det oppstod en feil:", error);
