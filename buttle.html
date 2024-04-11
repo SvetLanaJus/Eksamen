@@ -72,28 +72,6 @@
           alt="Toxapex bilde"
         />
       </div>
-
-      <div class="pokemons-health-containers">
-        <div class="health-container">
-          <div class="health">
-            <p id="pikachu-name-txt">Pikachu</p>
-            <p id="pikachu-health-txt">400 / 400 HP</p>
-          </div>
-          <div class="health">
-            <p id="bulbasaur-name-txt">Bulbasaur</p>
-            <p id="bulbasaur-health-txt">400 / 400 HP</p>
-          </div>
-          <div class="health">
-            <p id="charmander-name-txt">Charmander</p>
-            <p id="charmander-health-txt">400 / 400 HP</p>
-          </div>
-          <div class="health">
-            <p id="toxapex-name-txt">Toxapex</p>
-            <p id="toxapex-health-txt">400 / 400 HP</p>
-          </div>
-        </div>
-      </div>
-      <div class="game-container"></div>
     </div>
 
     <script>
@@ -176,7 +154,7 @@
             const stat3 = cardContainer.querySelector(
               "p#" + pokemon.name + "-stat-3"
             );
-            
+
             stat1.textContent = `HP: ${hpStat.base_stat}`;
             stat2.textContent = `Attack: ${attackStat.base_stat}`;
             stat3.textContent = `Defense: ${defenseStat.base_stat}`;
