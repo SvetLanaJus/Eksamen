@@ -74,3 +74,20 @@ h1 {
 .img-container:hover img {
   transform: scale(1.2);
 }
+
+.hp-bar {
+  border: 1px solid;
+  border-radius: 5px;
+  height: 20px;
+  background-color: green;
+  margin-bottom: 5px;
+  transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.hp-bar.low {
+  background-color: yellow;
+}
+
+.hp-bar.critical {
+  background-color: red;
+}

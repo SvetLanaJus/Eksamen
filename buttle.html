@@ -17,6 +17,7 @@
           <p id="pikachu-stat-1"></p>
           <p id="pikachu-stat-2"></p>
           <p id="pikachu-stat-3"></p>
+          <div class="hp-bar" id="pikachu-hp-bar"></div>
         </div>
         <div class="card bulbasaur-card-container">
           <img id="bulbasaur-picture" />
@@ -25,6 +26,7 @@
           <p id="bulbasaur-stat-1"></p>
           <p id="bulbasaur-stat-2"></p>
           <p id="bulbasaur-stat-3"></p>
+          <div class="hp-bar" id="bulbasaur-hp-bar"></div>
         </div>
         <div class="card charmander-card-container">
           <img id="charmander-picture" />
@@ -33,6 +35,7 @@
           <p id="charmander-stat-1"></p>
           <p id="charmander-stat-2"></p>
           <p id="charmander-stat-3"></p>
+          <div class="hp-bar" id="charmander-hp-bar"></div>
         </div>
         <div class="card toxapex-card-container">
           <img id="toxapex-picture" />
@@ -41,6 +44,7 @@
           <p id="toxapex-stat-1"></p>
           <p id="toxapex-stat-2"></p>
           <p id="toxapex-stat-3"></p>
+          <div class="hp-bar" id="toxapex-hp-bar"></div>
         </div>
       </div>
 
@@ -100,7 +104,7 @@
 
       async function getPokemonData() {
         try {
-          const pokemonData = await fetchPokemonData();
+          pokemonData = await fetchPokemonData();
           console.log(pokemonData);
         } catch (error) {
           console.error("Ops, det oppstod en feil:", error);
@@ -165,6 +169,141 @@
       }
 
       fillPokemonCards();
+
+      pikachuImg.addEventListener("click", () => {
+        attackOpponent("pikachu");
+      });
+      bulbasaurImg.addEventListener("click", () => {
+        attackOpponent("bulbasaur");
+      });
+      toxapexImg.addEventListener("click", () => {
+        attackOpponent("toxapex");
+      });
+      charmanderImg.addEventListener("click", () => {
+        attackOpponent("charmander");
+      });
+
+      async function attackOpponent(attackerName) {
+        try {
+          const { attackedPokemonName, damage } = await calculateDamage(
+            attackerName
+          );
+          const attackedPokemon = pokemonData.find(
+            (pokemon) => pokemon.name === attackedPokemonName
+          );
+          const newHP = Math.max(
+            0,
+            attackedPokemon.stats.find((stat) => stat.stat.name === "hp")
+              .base_stat - damage
+          );
+          attackedPokemon.stats.find(
+            (stat) => stat.stat.name === "hp"
+          ).base_stat = newHP;
+
+          updateHPDisplay(attackedPokemonName, newHP);
+
+          alert(
+            `${attackerName} angriper ${attackedPokemonName} med skade ${damage}`
+          );
+          alert(`${attackedPokemonName} har nå ${newHP} HP`);
+
+          if (newHP === 0) {
+            const attackedPokemonImgContainer = document.querySelector(
+              `.${attackedPokemonName}`
+            );
+            attackedPokemonImgContainer.style.display = "none";
+
+            pokemonData = pokemonData.filter(
+              (pokemon) => pokemon.name !== attackedPokemonName
+            );
+
+            alert(`${attackedPokemonName} ble slått ut!`);
+          }
+          // Sjekk om det fortsatt er Pokémoner igjen å kjempe mot
+          if (pokemonData.length > 1) {
+            alert("Fortsett kampen!");
+          } else {
+            alert("Kampen er over! Alle andre Pokémoner ble slått ut.");
+          }
+        } catch (error) {
+          console.error("Det oppstod en feil under angrepet:", error);
+        }
+      }
+
+      // Funksjon for å beregne skade og ny HP etter angrep
+      async function calculateDamage(attackerName) {
+        return new Promise((resolve, reject) => {
+          try {
+            //Oppdatering av lista over Pokemons navn basert på de gjenværende pokemonene i arrayet (pokemonData)
+            const remainingPokemonNames = pokemonData
+              .map((pokemon) => pokemon.name)
+              .filter((name) => name !== attackerName);
+
+            // Velger en tilfeldig pokemon fra de gjenværende
+            const attackedPokemonName =
+              remainingPokemonNames[
+                Math.floor(Math.random() * remainingPokemonNames.length)
+              ];
+
+            const attacker = pokemonData.find(
+              (pokemon) => pokemon.name === attackerName
+            );
+            const attacked = pokemonData.find(
+              (pokemon) => pokemon.name === attackedPokemonName
+            );
+
+            const attackerAttack = attacker.stats.find(
+              (stat) => stat.stat.name === "attack"
+            ).base_stat;
+            const attackedDefense = attacked.stats.find(
+              (stat) => stat.stat.name === "defense"
+            ).base_stat;
+            const attackedHP = attacked.stats.find(
+              (stat) => stat.stat.name === "hp"
+            ).base_stat;
+
+            // Her beregnes skade
+            const damage = Math.max(0, attackerAttack - attackedDefense);
+            const newHP = Math.max(0, attackedHP - damage);
+
+            // Returnerer resultat
+            resolve({ attackedPokemonName, damage });
+          } catch (error) {
+            reject(error);
+          }
+        });
+      }
+
+      // Funksjonen for å oppdatere teksten og HPbaren for den angrepne pokemonen
+      function updateHPDisplay(pokemonName, newHP) {
+        const attackedHPElement = document.getElementById(
+          `${pokemonName}-stat-1`
+        );
+        attackedHPElement.textContent = `HP: ${newHP}`;
+
+        const attackedHPBar = document.getElementById(`${pokemonName}-hp-bar`);
+        const percentageHP =
+          (newHP /
+            pokemonData
+              .find((pokemon) => pokemon.name === pokemonName)
+              .stats.find((stat) => stat.stat.name === "hp").base_stat) *
+          100;
+        attackedHPBar.style.width = `${percentageHP}%`;
+
+        if (newHP <= 10) {
+          attackedHPBar.classList.add("low");
+        } else {
+          attackedHPBar.classList.remove("low");
+        }
+
+        if (newHP <= 5) {
+          attackedHPBar.classList.add("critical");
+        } else {
+          attackedHPBar.classList.remove("critical");
+        }
+      }
+
+      getPokemonData();
     </script>
   </body>
 </html>
