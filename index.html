@@ -224,6 +224,7 @@
 
       //Viser de opprinnelige 50 pokemoner
       async function showPokemons() {
+        pokemonsContainer.innerHTML = "";
         pokemons = await fetchPokemons();
         pokemons.forEach(async (pokemonData) => {
           const pokemonsRequest = await fetch(pokemonData.url);
@@ -242,8 +243,8 @@
         pokemonsContainer.innerHTML = "";
         pokemons.forEach(async (pokemonData) => {
           const pokemon = await fetchPokemonDetails(pokemonData.url);
-          const types = pokemon.types.map((type) => type.type.name);
-          if (types.includes(type)) {
+          const firstType = pokemon.types[0].type.name; // Henter den første typen av pokemonen
+          if (firstType === type) {
             const pokemonCard = createPokemonCard(pokemon);
             pokemonsContainer.appendChild(pokemonCard);
           }
