@@ -56,6 +56,18 @@ h3 {
   margin: 5px;
 }
 
+#alle-pokemoner {
+  width: 125px;
+  height: 50px;
+  border: 2px solid white;
+  border-radius: 15px;
+  color: black;
+  background-color: yellow;
+  margin: 5px;
+  margin-left: 510px;
+  padding: 5px;
+}
+
 .normal-btn {
   background-color: #a8a77a;
 }

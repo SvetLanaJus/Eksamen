@@ -40,6 +40,7 @@
         <option value="water">Water</option>
       </select>
       <input type="button" value="Lag din pokemon!" id="add-btn" />
+      <input type="button" value="Vis alle pokemoner" id="alle-pokemoner" />
       <h2>Filtrer pga stiler</h2>
       <div id="filter-btn-container">
         <input type="button" value="bug" class="btn bug-btn filter-btn" />
@@ -76,9 +77,11 @@
       //Basic 50 pokemons
       let pokemons = [];
 
+      //Knapper
       //Knapp til en ny pokemon
       const addBtn = document.getElementById("add-btn");
-
+      // Vis alle pokemoner
+      const allePokemoner = document.getElementById("alle-pokemoner");
       //Kontainere
       const pokemonsContainer = document.getElementById("pokemons-container");
       const savedPokemonsContainer = document.getElementById(
@@ -213,7 +216,7 @@
         const newPokemon = {
           name: nameInput,
           types: [{ type: { name: typeInput } }],
-          sprites: { front_default: "assets/pokemon1.jpg" },
+          sprites: { front_default: "assets/toxapex.png" },
         };
         const pokemonCard = createPokemonCard(newPokemon);
         pokemonsContainer.appendChild(pokemonCard);
@@ -230,6 +233,9 @@
           pokemonsContainer.appendChild(pokemonCard);
         });
       }
+
+      allePokemoner.addEventListener('click', showPokemons);
+      console.log(allePokemoner);
 
       // Filtrer pokemoner basert på type
       async function filterPokemonsByType(type) {
