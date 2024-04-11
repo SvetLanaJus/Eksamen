@@ -34,17 +34,17 @@ h1 {
   left: 8%;
 }
 
-.health-containers {
-  margin-top: 10px;
-  width: 300px;
-  height: 50px;
-  border: 2px solid black;
-}
-
 .health {
   position: relative;
     z-index: 2;
-    color: yellow;
+    color: rgb(164, 7, 99);
+    border: 1px solid pink;
+    border-radius: 5px;
+    width: 140px;
+    height: 75px;
+    margin: 5px;
+    background-color: rgb(190, 226, 247);
+    text-align: center;
 }
 
 .game-container {
@@ -72,7 +72,7 @@ h1 {
 
 .charmander {
   left: 58%;
-  bottom: 38%;
+  bottom: 33%;
 }
 
 .bulbasaur {
@@ -82,7 +82,7 @@ h1 {
 
 .toxapex {
   bottom: 40%;
-  left: 30%;
+  left: 33%;
 }
 
 .img-container:hover img {

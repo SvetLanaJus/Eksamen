@@ -10,7 +10,7 @@
     <h1>Pokemones buttle</h1>
     <div class="main-container">
       <div class="cards-container">
-        <div class="card pikachu-card-contaier">
+        <div class="card pikachu-card-container">
           <img id="pikachu-picture" />
           <p id="pikachu-name"></p>
           <p id="pikachu-type"></p>
@@ -72,27 +72,34 @@
       <div class="pokemons-health-containers">
         <div class="health-container">
           <div class="health">
-            <p id="pikachu-name-txt">Pikachu navn</p>
+            <p id="pikachu-name-txt">Pikachu</p>
             <p id="pikachu-health-txt">400 / 400 HP</p>
           </div>
           <div class="health">
-            <p id="bulbasaur-name-txt">Bulbasaur navn</p>
+            <p id="bulbasaur-name-txt">Bulbasaur</p>
             <p id="bulbasaur-health-txt">400 / 400 HP</p>
           </div>
           <div class="health">
-            <p id="charmander-name-txt">Charmander navn</p>
+            <p id="charmander-name-txt">Charmander</p>
             <p id="charmander-health-txt">400 / 400 HP</p>
           </div>
           <div class="health">
-            <p id="toxapex-name-txt">Toxapex navn</p>
+            <p id="toxapex-name-txt">Toxapex</p>
             <p id="toxapex-health-txt">400 / 400 HP</p>
           </div>
         </div>
       </div>
       <div class="game-container"></div>
     </div>
+
     <script>
-      let pokemons = [];
+      //Pokemons bilder i variabler
+      const pikachuImg = document.querySelector(".pikachu");
+      const bulbasaurImg = document.querySelector(".bulbasaur");
+      const toxapexImg = document.querySelector(".toxapex");
+      const charmanderImg = document.querySelector(".charmander");
+
+      let pokemonData = [];
 
       async function fetchPokemonData() {
         const pokemonNames = ["pikachu", "charmander", "bulbasaur", "toxapex"];
@@ -114,11 +121,58 @@
           const pokemonData = await fetchPokemonData();
           console.log(pokemonData);
         } catch (error) {
-          console.error("Feil:", error);
+          console.error("Ops, det oppstod en feil:", error);
         }
       }
 
       getPokemonData();
+
+      async function fillPokemonCards() {
+        try {
+          const pokemonData = await fetchPokemonData();
+          const cardsContainer = document.querySelector(".cards-container");
+
+          pokemonData.forEach((pokemon, index) => {
+            const cardContainer = document.querySelector(
+              `.${pokemon.name}-card-container`
+            );
+
+            const img = cardContainer.querySelector("img");
+            img.src = pokemon.sprites.front_default;
+
+            const name = cardContainer.querySelector(
+              "p#" + pokemon.name + "-name"
+            );
+            name.textContent = pokemon.name;
+
+            const type = cardContainer.querySelector(
+              "p#" + pokemon.name + "-type"
+            );
+            type.textContent = pokemon.types[0].type.name;
+
+            const hpStat = pokemon.stats.find(
+              (stat) => stat.stat.name === "hp"
+            );
+
+            const attackStat = pokemon.stats.find(
+              (stat) => stat.stat.name === "attack"
+            );
+
+            const stat1 = cardContainer.querySelector(
+              "p#" + pokemon.name + "-stat-1"
+            );
+            const stat2 = cardContainer.querySelector(
+              "p#" + pokemon.name + "-stat-2"
+            );
+            stat1.textContent = `HP: ${hpStat.base_stat}`;
+            stat2.textContent = `Attack: ${attackStat.base_stat}`;
+          });
+        } catch (error) {
+          console.error("Det oppstod en feil:", error);
+        }
+      }
+
+      fillPokemonCards();
     </script>
   </body>
 </html>
