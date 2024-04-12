@@ -11,7 +11,11 @@
     <div class="main-container">
       <h1>Pokemons</h1>
       <h3>Lag din egen pokemon!</h3>
-      <input type="text" placeholder="Navn på ny pokemon" id="new-pokemon-txt"/>
+      <input
+        type="text"
+        placeholder="Navn på ny pokemon"
+        id="new-pokemon-txt"
+      />
       <select id="type-selection">
         <option value="bug">Bug</option>
         <option value="dark">Dark</option>
@@ -38,9 +42,17 @@
         <input type="button" value="bug" class="btn bug-btn filter-btn" />
         <input type="button" value="dark" class="btn dark-btn filter-btn" />
         <input type="button" value="dragon" class="btn dragon-btn filter-btn" />
-        <input type="button" value="electric" class="btn electric-btn filter-btn" />
+        <input
+          type="button"
+          value="electric"
+          class="btn electric-btn filter-btn"
+        />
         <input type="button" value="fairy" class="btn fairy-btn filter-btn" />
-        <input type="button" value="fighting" class="btn fighting-btn filter-btn" />
+        <input
+          type="button"
+          value="fighting"
+          class="btn fighting-btn filter-btn"
+        />
         <input type="button" value="fire" class="btn fire-btn filter-btn" />
         <input type="button" value="flying" class="btn flying-btn filter-btn" />
         <input type="button" value="ghost" class="btn ghost-btn filter-btn" />
@@ -48,7 +60,11 @@
         <input type="button" value="ice" class="btn ice-btn filter-btn" />
         <input type="button" value="normal" class="btn normal-btn filter-btn" />
         <input type="button" value="poison" class="btn poison-btn filter-btn" />
-        <input type="button" value="psychic"class="btn psychic-btn filter-btn" />
+        <input
+          type="button"
+          value="psychic"
+          class="btn psychic-btn filter-btn"
+        />
         <input type="button" value="rock" class="btn rock-btn filter-btn" />
         <input type="button" value="steel" class="btn steel-btn filter-btn" />
         <input type="button" value="water" class="btn water-btn filter-btn" />
@@ -58,7 +74,6 @@
     </div>
 
     <script>
-     
       const newPokemonTxt = document.getElementById("new-pokemon-txt");
       const typeSelection = document.getElementById("type-selection");
       let savedPokemons = [];
@@ -70,30 +85,34 @@
       const allePokemoner = document.getElementById("alle-pokemoner");
       //Kontainere
       const pokemonsContainer = document.getElementById("pokemons-container");
-      const savedPokemonsContainer = document.getElementById("saved-pokemons-container");
+      const savedPokemonsContainer = document.getElementById(
+        "saved-pokemons-container"
+      );
 
-    //Henter data fra API
+      //Henter data fra API
       async function fetchPokemons() {
-        const pokemonsRequest = await fetch("https://pokeapi.co/api/v2/pokemon?limit=50");
+        const pokemonsRequest = await fetch(
+          "https://pokeapi.co/api/v2/pokemon?limit=50"
+        );
         const data = await pokemonsRequest.json();
         return data.results;
       }
 
       //Viser de opprinnelige 50 pokemoner
-        async function showPokemons() {
-          pokemonsContainer.innerHTML = "";
-          pokemons = await fetchPokemons();
-          pokemons.forEach(async (pokemonData) => {
-            const pokemonsRequest = await fetch(pokemonData.url);
-            const result = await pokemonsRequest.json();
+      async function showPokemons() {
+        pokemonsContainer.innerHTML = "";
+        pokemons = await fetchPokemons();
+        pokemons.forEach(async (pokemonData) => {
+          const pokemonsRequest = await fetch(pokemonData.url);
+          const result = await pokemonsRequest.json();
 
-            const pokemonCard = createPokemonCard(result);
-            pokemonsContainer.appendChild(pokemonCard);
-          });
-        }
+          const pokemonCard = createPokemonCard(result);
+          pokemonsContainer.appendChild(pokemonCard);
+        });
+      }
 
-        allePokemoner.addEventListener("click", showPokemons);
-        console.log(allePokemoner);
+      allePokemoner.addEventListener("click", showPokemons);
+      console.log(allePokemoner);
       //Funksjon for å opprette et pokemon kort
       function createPokemonCard(pokemon) {
         const pokemonType = pokemon.types[0].type.name;
@@ -162,70 +181,79 @@
       }
 
       // Filtrer pokemoner basert på type
-        async function filterPokemonsByType(type) {
-          pokemonsContainer.innerHTML = "";
-          pokemons.forEach(async (pokemonData) => {
-            const pokemon = await fetchPokemonDetails(pokemonData.url);
-            const firstType = pokemon.types[0].type.name; // Henter den første typen av pokemonen
-            if (firstType === type) {
-              const pokemonCard = createPokemonCard(pokemon);
-              pokemonsContainer.appendChild(pokemonCard);
-            }
-          });
-        }
+      async function filterPokemonsByType(type) {
+        pokemonsContainer.innerHTML = "";
+        pokemons.forEach(async (pokemonData) => {
+          const pokemon = await fetchPokemonDetails(pokemonData.url);
+          const firstType = pokemon.types[0].type.name; // Henter den første typen av pokemonen
+          if (firstType === type) {
+            const pokemonCard = createPokemonCard(pokemon);
+            pokemonsContainer.appendChild(pokemonCard);
+          }
+        });
+      }
 
       // Event listener for filtreringsknapper
-        document.querySelectorAll(".filter-btn").forEach((button) => {
-          button.addEventListener(`click`, function () {
-            const type = this.value;
-            filterPokemonsByType(type);
-          });
+      document.querySelectorAll(".filter-btn").forEach((button) => {
+        button.addEventListener(`click`, function () {
+          const type = this.value;
+          filterPokemonsByType(type);
         });
+      });
 
-        showPokemons();
+      showPokemons();
       // Hjelpefunksjon for å hente detaljer for en enkelt pokemon
-        async function fetchPokemonDetails(url) {
-          const response = await fetch(url);
-          const data = await response.json();
-          return data;
-        }
+      async function fetchPokemonDetails(url) {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+      }
       //Funksjon til å lagre pokemon i localStorage
-        function savePokemon(pokemon) {
-          if (savedPokemons.length < 5) {
-            savedPokemons.push(pokemon);
-            localStorage.setItem('savedPokemons', JSON.stringify(savedPokemons));
-            showSavedPokemons();
-          } else {
-            alert("Du kan ikke lagre mere om 5 Pokemons. En Pokemon må slettes for å legge til en ny.");
-          }
+      function savePokemon(pokemon) {
+        if (savedPokemons.length < 5) {
+          savedPokemons.push(pokemon);
+          localStorage.setItem("savedPokemons", JSON.stringify(savedPokemons));
+          showSavedPokemons();
+        } else {
+          alert(
+            "Du kan ikke lagre mere om 5 Pokemons. En Pokemon må slettes for å legge til en ny."
+          );
         }
+      }
 
       //Oversikt over lagrede pokemonene
-        function showSavedPokemons() {
-          savedPokemonsContainer.innerHTML = "";
-          savedPokemons.forEach(pokemon => {
-           if (pokemon.name && pokemon.types && pokemon.sprites && pokemon.sprites.front_default) {
+      function showSavedPokemons() {
+        savedPokemonsContainer.innerHTML = "";
+        savedPokemons.forEach((pokemon) => {
+          if (
+            pokemon.name &&
+            pokemon.types &&
+            pokemon.sprites &&
+            pokemon.sprites.front_default
+          ) {
             const pokemonCard = createPokemonCard(pokemon);
             savedPokemonsContainer.appendChild(pokemonCard);
-            } else {
-             console.error("Ufullstendig Pokémon-objekt:", pokemon);
-           }
-          });
-        }
-      
-      //Her hentes lagrede pokemoner fra localStorage når siden lastes
-        window.addEventListener('load', () => {
-          const savedPokemonData = JSON.parse(localStorage.getItem('savedPokemons'));
-          if (savedPokemonData) {
-            savedPokemons = savedPokemonData;
-            showSavedPokemons();
+          } else {
+            console.error("Ufullstendig Pokémon-objekt:", pokemon);
           }
         });
-      
+      }
+
+      //Her hentes lagrede pokemoner fra localStorage når siden lastes
+      window.addEventListener("load", () => {
+        const savedPokemonData = JSON.parse(
+          localStorage.getItem("savedPokemons")
+        );
+        if (savedPokemonData) {
+          savedPokemons = savedPokemonData;
+          showSavedPokemons();
+        }
+      });
+
       //Slette funksjon
       function deletePokemon(pokemon) {
-        savedPokemons = savedPokemons.filter(p => p.name !== pokemon.name);
-        localStorage.setItem('savedPokemons', JSON.stringify(savedPokemons));
+        savedPokemons = savedPokemons.filter((p) => p.name !== pokemon.name);
+        localStorage.setItem("savedPokemons", JSON.stringify(savedPokemons));
         showSavedPokemons();
       }
 
@@ -238,11 +266,14 @@
         const newPokemon = {
           name: name,
           types: [{ type: { name: type } }],
-          sprites: { front_default: "assets/newpokemon.png", style: { width: "5px" } }
+          sprites: {
+            front_default: "assets/newpokemon.png",
+            style: { width: "5px" },
+          },
         };
 
         savePokemon(newPokemon);
-      }      
+      }
 
       //Funksjon til å redigere pokemon kort (navn, type)
       function editPokemon(pokemon, nameDetail, typeDetail) {
@@ -251,15 +282,17 @@
           nameDetail.textContent = newName;
           pokemon.name = newName;
         }
-        const newType = prompt("Skriv ny type til pokemon:", pokemon.types[0].type.name);
+        const newType = prompt(
+          "Skriv ny type til pokemon:",
+          pokemon.types[0].type.name
+        );
         if (newType !== null) {
           typeDetail.textContent = newType;
           pokemon.types[0].type.name = newType;
-        } 
-        
-        localStorage.setItem('savedPokemons', JSON.stringify(savedPokemons));
         }
-        
+
+        localStorage.setItem("savedPokemons", JSON.stringify(savedPokemons));
+      }
     </script>
   </body>
 </html>
